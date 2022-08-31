@@ -1,0 +1,65 @@
+{% extends './base.html' %}
+
+
+{% block contant %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fname</th>
+        <th scope="col">Lname</th>
+        <th scope="col">Address</th>
+        <th scope="col">pincode</th>
+        <th scope="col">Email</th>
+        <th colspan="2">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in page_obj.object_list %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{i.fname}}</td>
+        <td>{{i.lname}}</td>
+        <td>{{i.address}}</td>
+        <td>{{i.pincode}}</td>
+        <td>{{i.email}}</td>
+        <td><a href="{% url 'edits' i.id %}" class="btn btn-primary">Edit</a></td>
+        <td><a href="{% url 'deletes' i.id %}" class="btn btn-danger">Delete</a></td>
+        <td><a href="{% url 'details' i.id %}" class="btn btn-danger">Detail</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <nav aria-label="...">
+    <ul class="pagination">
+      {%if page_obj.has_previous %}
+      <li class="page-item ">
+        <a href="?page={{page_obj.previous_page_number}}" class="page-link">Previous</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      {% endif %}
+      {% comment %} <li class="page-item"><a class="page-link" href="#">{{page_obj.previous_page_number}}</a></li> {% endcomment %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">{{page_obj.number}}<span class="visually-hidden">(current)</span></a>
+      </li>
+      {% comment %} <li class="page-item"><a class="page-link" href="#">{{page_obj.next_page_number}}</a></li> {% endcomment %}
+      {%if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+{% endblock contant %}
+
+
